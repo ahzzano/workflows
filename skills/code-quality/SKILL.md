@@ -81,3 +81,31 @@ def short_function():
     f3()
     ...
 ```
+
+### All object variables are public 
+If applicable, all variables must be private. Variables must be only accessed by getters and setters.
+```rust
+// FAIL:
+struct bad_struct{
+    pub var1: i32,
+    pub var2: i32,
+}
+
+// PASS:
+struct good_struct {
+    var1: i32,
+    var2: i32,
+}
+
+impl good_struct {
+    pub fn get_var1() -> i32 {
+        ...
+    }
+
+    pub fn set_var2() {
+        ...
+    }
+    ...
+}
+
+```
