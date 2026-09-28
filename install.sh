@@ -7,12 +7,11 @@ install_link() {
     source=$1 target=$2
     [ "$source" = "$target" ] && return
     mkdir -p "$(dirname "$target")"
-    if [ -e "$target" ] || [ -L "$target" ]; then
-        if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
-            return
-        fi
-        printf 'Skipping existing %s\n' "$target" >&2
+    if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
         return
+    fi
+    if [ -e "$target" ] || [ -L "$target" ]; then
+        rm -f "$target"
     fi
     ln -s "$source" "$target"
     printf 'Installed %s\n' "$target"

@@ -21,10 +21,17 @@ for tool in .pi/agent .agents .claude; do
 done
 
 sh "$repo/install.sh" >/dev/null
-printf 'keep me\n' > "$HOME/.claude/agents/researcher.md".new
 rm "$HOME/.claude/agents/researcher.md"
-mv "$HOME/.claude/agents/researcher.md".new "$HOME/.claude/agents/researcher.md"
-sh "$repo/install.sh" claude >/dev/null 2>&1
-[ "$(cat "$HOME/.claude/agents/researcher.md")" = 'keep me' ]
+printf 'outdated\n' > "$HOME/.claude/agents/researcher.md"
+rm "$HOME/.pi/agent/agents/researcher.md"
+ln -s "$HOME/.claude/agents/researcher.md" "$HOME/.pi/agent/agents/researcher.md"
+rm "$HOME/.claude/skills/tdd"
+mkdir "$HOME/.claude/skills/tdd"
+if sh "$repo/install.sh" claude >/dev/null 2>&1; then exit 1; fi
+rmdir "$HOME/.claude/skills/tdd"
+sh "$repo/install.sh" pi claude >/dev/null
+[ "$(readlink "$HOME/.claude/agents/researcher.md")" = "$repo/agents/researcher.md" ]
+[ "$(readlink "$HOME/.pi/agent/agents/researcher.md")" = "$repo/agents/researcher.md" ]
+[ "$(readlink "$HOME/.claude/skills/tdd")" = "$repo/skills/tdd" ]
 if sh "$repo/install.sh" invalid > /dev/null 2>&1; then exit 1; fi
 printf 'Installer smoke test passed\n'
