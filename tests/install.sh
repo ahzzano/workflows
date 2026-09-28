@@ -19,6 +19,8 @@ for tool in .pi/agent .agents .claude; do
         [ -L "$HOME/$tool/skills/$(basename "$skill")" ]
     done
 done
+[ -f "$HOME/.agents/skills/thermo-nuclear-code-quality-review/agents/openai.yaml" ]
+grep -q 'allow_implicit_invocation: false' "$HOME/.agents/skills/thermo-nuclear-code-quality-review/agents/openai.yaml"
 
 sh "$repo/install.sh" >/dev/null
 rm "$HOME/.claude/agents/researcher.md"

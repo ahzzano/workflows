@@ -15,6 +15,9 @@ try {
         if (-not (Get-Item -LiteralPath $path).LinkType) { throw "Not linked: $path" }
     }
 
+    $codexPolicy = Join-Path $tempHome '.agents/skills/thermo-nuclear-code-quality-review/agents/openai.yaml'
+    if (-not (Select-String -LiteralPath $codexPolicy -Pattern 'allow_implicit_invocation: false' -Quiet)) { throw 'Codex invocation policy missing' }
+
     & $installer
     Remove-Item -LiteralPath $claudeAgent
     Set-Content -LiteralPath $claudeAgent -Value 'outdated'
