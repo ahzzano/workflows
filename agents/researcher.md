@@ -2,7 +2,6 @@
 name: researcher
 description: Web Researcher 
 tools: web_search, web_search
-model: 
 thinking: medium
 ---
 
