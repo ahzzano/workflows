@@ -6,6 +6,7 @@ allowed-tools: Bash(git:*) Read
 ---
 
 # Better Commit 
+Use only Git commands and file-reading tools for this workflow; do not edit files.
 Stage all changes in a git repository as a series of different bite-sized checkpoints. 
 Each checkpoint must correspond to a small meaningful change that can be reviewed by the user.
 
