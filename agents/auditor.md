@@ -1,6 +1,6 @@
 ---
 name: auditor
-description: Auditor
+description: Agent that audits your codebase
 thinking: medium
 ---
 

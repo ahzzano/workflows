@@ -1,7 +1,7 @@
 ---
 name: researcher
 description: Web Researcher 
-tools: web_search, web_search
+tools: web_search, web_fetch
 thinking: medium
 ---
 
