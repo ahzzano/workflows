@@ -39,10 +39,14 @@ Insert description of ticket here
 # Sub-Tasks
 - [ ] Task 1
 - [ ] Task 2
+- [ ] Task 3
 
 # Files (if applicable)
 Insert relevant files here 
 - `path/to/file.rs` (Lines 67-69) - description of file
+
+# References (if applicable)
+- Reference (url) - description
 
 # Definition of Done 
 Insert definition of done here

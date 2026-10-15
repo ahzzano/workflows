@@ -1,7 +1,8 @@
 ---
 name: researcher
-description: Web Researcher 
+description: sub agent that browses the web for information about the user's request
 tools: web_search, web_fetch
+max_turns: 20
 thinking: medium
 ---
 

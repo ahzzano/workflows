@@ -2,7 +2,8 @@
 name: worker
 description: General purpose worker
 tools: read, write, edit, safe_bash, web_search, web_fetch, subagent
-subagent_agents: scout, researcher, auditor
+allowed_subagents: scout, researcher, auditor
+max_turns: 25
 thinking: medium
 ---
 

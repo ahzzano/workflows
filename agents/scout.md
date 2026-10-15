@@ -2,8 +2,9 @@
 name: scout
 description: sub agent that reads and finds constructs in the codebase
 tools: read, grep, ls, find
-model: gpt-5.6-sol
-thinking: medium
+model: gpt-6.1-luna
+max_turns: 15
+thinking: low
 ---
 
 You are a scout agent. Quickly investigate a codebase and return structured findings. 
