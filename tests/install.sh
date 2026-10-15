@@ -7,11 +7,14 @@ trap 'rm -rf "$tmp"' EXIT HUP INT TERM
 HOME=$tmp; export HOME
 
 (cd / && sh "$repo/install.sh" pi codex claude)
-for target in \
-    "$HOME/.pi/agent/agents/researcher.md" \
-    "$HOME/.codex/agents/researcher.toml" \
-    "$HOME/.claude/agents/researcher.md"; do
-    [ -L "$target" ] && [ -f "$target" ]
+for agent in auditor planner researcher scout worker; do
+    for target in \
+        "$HOME/.pi/agent/agents/$agent.md" \
+        "$HOME/.codex/agents/$agent.toml" \
+        "$HOME/.claude/agents/$agent.md"; do
+        [ -L "$target" ] && [ -f "$target" ]
+        [ "$(readlink "$target")" = "$repo/agents/$(basename "$target")" ]
+    done
 done
 for tool in .pi/agent .agents .claude; do
     for skill in "$repo"/skills/*; do

@@ -8,12 +8,18 @@ $env:USERPROFILE = $tempHome
 try {
     & $installer -Platform pi,codex,claude
     $piAgent = Join-Path $tempHome '.pi/agent/agents/researcher.md'
-    $codexAgent = Join-Path $tempHome '.codex/agents/researcher.toml'
     $claudeAgent = Join-Path $tempHome '.claude/agents/researcher.md'
     $skill = Join-Path $tempHome '.claude/skills/tdd'
-    foreach ($path in @($piAgent, $codexAgent, $claudeAgent, $skill)) {
-        if (-not (Get-Item -LiteralPath $path).LinkType) { throw "Not linked: $path" }
+    $repo = Split-Path -Parent $PSScriptRoot
+    foreach ($agent in @('auditor', 'planner', 'researcher', 'scout', 'worker')) {
+        foreach ($relative in @(".pi/agent/agents/$agent.md", ".codex/agents/$agent.toml", ".claude/agents/$agent.md")) {
+            $path = Join-Path $tempHome $relative
+            $item = Get-Item -LiteralPath $path
+            if (-not $item.LinkType -or -not (Test-Path -LiteralPath $path -PathType Leaf)) { throw "Not linked: $path" }
+            if ($item.Target -ne (Join-Path $repo "agents/$(Split-Path -Leaf $path)")) { throw "Wrong target: $path" }
+        }
     }
+    if (-not (Get-Item -LiteralPath $skill).LinkType) { throw "Not linked: $skill" }
 
     $codexPolicy = Join-Path $tempHome '.agents/skills/thermo-nuclear-code-quality-review/agents/openai.yaml'
     if (-not (Select-String -LiteralPath $codexPolicy -Pattern 'allow_implicit_invocation: false' -Quiet)) { throw 'Codex invocation policy missing' }
