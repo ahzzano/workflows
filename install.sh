@@ -36,8 +36,8 @@ install_agents() {
 [ "$#" -gt 0 ] || set -- pi codex claude
 for platform do
     case $platform in
-        pi|codex|claude) ;;
-        *) printf 'Usage: %s [pi|codex|claude ...]\n' "$0" >&2; exit 2 ;;
+        pi|codex|claude|omp) ;;
+        *) printf 'Usage: %s [pi|codex|claude|omp ...]\n' "$0" >&2; exit 2 ;;
     esac
 done
 for platform do
@@ -49,6 +49,9 @@ for platform do
         codex)
             install_agents "$HOME/.codex/agents" toml
             install_skills "$HOME/.agents/skills"
+            ;;
+        omp)
+            install_agents "$HOME/.omp/agent/agents" md
             ;;
         claude)
             install_agents "$HOME/.claude/agents" md

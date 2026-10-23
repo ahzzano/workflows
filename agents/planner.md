@@ -1,8 +1,8 @@
 ---
 name: planner
 description: A subagent that creates an implementation plan for the user's request
-tools: read, grep, ls, find, safe_bash, subagent
-allowed_subagents: scout, researcher
+tools: Read, Grep, Glob, Bash, Agent, task
+spawns: scout, researcher
 max_turns: 10
 thinking: high
 ---
@@ -26,7 +26,7 @@ You are a senior software architect and your role is to come up with an implemen
 
 # Delegation 
 Your context is a finite resource. Most of it should be delegated to understanding the codebase. If you need to refer 
-to the documentation or have gaps in your knowledge, you have a `subagent` tool. Spawn a `researcher` subagent whenever you need 
+to the documentation or have gaps in your knowledge, you have the subagent tool (`Agent` in Claude Code, `task` in oh-my-pi). Spawn a `researcher` subagent whenever you need 
 to access the documentation for references
 
 Output Format: 

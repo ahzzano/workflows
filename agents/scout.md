@@ -1,8 +1,7 @@
 ---
 name: scout
 description: sub agent that reads and finds constructs in the codebase
-tools: read, grep, ls, find
-model: gpt-6.1-luna
+tools: Read, Grep, Glob
 max_turns: 15
 thinking: low
 ---
