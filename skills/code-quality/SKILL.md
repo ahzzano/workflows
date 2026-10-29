@@ -1,14 +1,16 @@
 ---
 name: code-quality
-description: Language agnostic code quality standards for readable code
+description: Language agnostic code quality standards for readable code. Always use when auditing/writing new code
 metadata:
     origin: Will
 ---
 
 # Coding Standards & Best Practices
-Baeline coding conventions applicable across projects
+Baseline coding conventions applicable across projects
 
 This is a shared playbook. Not a source of truth
+
+If there skills that are more language specific, you may use this as well as that skill
 
 ## Code Quality Principles
 

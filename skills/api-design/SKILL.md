@@ -1,9 +1,9 @@
 ---
 name: api-design
-description: API design guidelines and principles
+description: API design guidelines and principles for auditing and writing backend designs
 ---
 
-This skill is a playbook/set of principles to design better APIs. If you are designing backend APIs, you may use this skill
+This skill is a playbook/set of principles to design better APIs. If you are designing backend APIs or auditing backend implementations, use this skill
 
 # Methods
 | Method | description |
