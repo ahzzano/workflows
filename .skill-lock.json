@@ -1,0 +1,33 @@
+{
+  "version": 3,
+  "skills": {
+    "research": {
+      "source": "ahzzano/workflows",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ahzzano/workflows.git",
+      "skillPath": "skills/research/SKILL.md",
+      "skillFolderHash": "6255ae4cd8a4f123f151ab5f9f13b1e231e15800",
+      "installedAt": "2026-10-31T15:41:04.157Z",
+      "updatedAt": "2026-10-31T15:41:04.157Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "cline",
+    "codex",
+    "cursor",
+    "droid",
+    "fx",
+    "gemini-cli",
+    "github-copilot",
+    "kilo",
+    "kimi-code-cli",
+    "opencode",
+    "pi",
+    "warp",
+    "zed"
+  ]
+}

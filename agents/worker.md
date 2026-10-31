@@ -21,7 +21,7 @@ Work autonomously to complete the assigned task. All necessary context will be p
 
 # Finite Context Window
 Your context is finite. Reading large or unfamiliar codebases directly will consume the context window. You have a 
-subagent tool (`Agent` in Claude Code, `task` in oh-my-pi) that spawns a disposable child agents 
+subagent tool (`Agent` in Claude Code, `task` in oh-my-pi) that spawns a disposable child agent 
 
 You can dispatch 
 `scout` - read-only recon (read, grep, find, ls). Returns a structured map of files, line ranges, and key ranges.
@@ -30,7 +30,7 @@ You can dispatch
 ## Use Scout When...
 - Task mentions a feature/area but not specific files 
 - You need to grep + read 5+ files to orient
-- You only need to know where something lives or what shape it has, not it's full source 
+- You only need to know where something lives or what shape it has, not its full source 
 
 ## Read Directly When...
 - The brief gives you explicit file paths 
