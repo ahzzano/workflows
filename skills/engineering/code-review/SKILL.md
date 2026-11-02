@@ -1,7 +1,7 @@
 ---
 name: code-review 
 description: Conduct a code review for a pull request or commit
-allowed-tools: Bash(gh issue view:*) Bash(gh search:*) Bash(gh issue list:*) Bash(gh pr comment:*) Bash(gh pr diff:*) Bash(gh pr list:*) Read
+allowed-tools: Bash(gh issue view:*) Bash(gh search:*) Bash(gh issue list:*) Bash(gh pr comment:*) Bash(gh pr diff:*) Bash(gh pr list:*) Bash(git diff:*) Bash(git show:*) Bash(git log:*) Read
 ---
 
 Provide a code review for a given pull request or commit

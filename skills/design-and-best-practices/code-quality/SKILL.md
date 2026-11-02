@@ -48,13 +48,11 @@ def do_x():
 def calculate_mass():
     ...
 # FAIL: unclear or noun only 
-
-def x(self):
-    return self.x
-
 def mass():
     ...
 ```
+
+Exception: accessors and properties are named after the value they return (`balance`, `name()`), not a verb.
 
 ## General Code Smells
 
@@ -84,30 +82,29 @@ def short_function():
     ...
 ```
 
-### All object variables are public 
-If applicable, all variables must be private. Variables must be only accessed by getters and setters.
-```rust
-// FAIL:
-struct bad_struct{
-    pub var1: i32,
-    pub var2: i32,
-}
+### Over-exposed state
+Keep fields private when they protect an invariant (a value that must stay valid,
+or must change together with another field). Plain data with no invariant may stay public.
+Do not add getters/setters that only pass a value through.
+Follow the language's accessor conventions (e.g. see `better-rust-patterns` for Rust).
 
-// PASS:
-struct good_struct {
-    var1: i32,
-    var2: i32,
-}
+```py
+# FAIL: callers can break the invariant (balance must match transactions)
+class Account:
+    def __init__(self):
+        self.balance = 0
+        self.transactions = []
 
-impl good_struct {
-    pub fn get_var1() -> i32 {
+# PASS: invariant enforced in one place
+class Account:
+    def __init__(self):
+        self._balance = 0
+        self._transactions = []
+
+    def deposit(self, amount):
         ...
-    }
 
-    pub fn set_var2() {
-        ...
-    }
-    ...
-}
-
+    @property
+    def balance(self):
+        return self._balance
 ```

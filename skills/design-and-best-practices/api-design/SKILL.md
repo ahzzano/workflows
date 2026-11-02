@@ -13,22 +13,22 @@ This skill is a playbook/set of principles to design better APIs. If you are des
 | DELETE | Used to delete existing resources | 
 |  PUT | Used to update existing resources. PUT replaces the entire resource | 
 | PATCH | Used to update existing resources. PATCH applies partial modifications | 
-| DELETE | Used to delete existing resources | 
 
 
 # Good API Designs
 ## Consistency 
 Similar end points should always follow the same pattern 
 ```
-GET /api/users/{1233}/name
-GET /api/projects/{4321}/name
+GET /api/users/{userId}/name
+GET /api/projects/{projectId}/name
 ```
 
 ## Hierarchical Design
-Nested resources should use a hierachical url structure to reflect this relationship
+Nested resources should use a hierarchical url structure to reflect this relationship
 ```
 BAD:
-GET /api/evaluation/123/project
+GET /api/evaluations?projectId=123
+GET /api/getProjectEvaluations/123
 
 GOOD:
 GET /api/projects/123/evaluations
@@ -49,28 +49,34 @@ GET /api/projects/{projectId}
 ### Always use plural nouns when there are multiple resources
 ```
 BAD:
-GET /api/get/project
+GET /api/project
 
+GOOD:
 GET /api/projects
 GET /api/projects/{projectId}
 ```
 
-### Define endpoints as user actions, not as CRUD operations
+### Use action endpoints only for operations that aren't CRUD
+Standard create/read/update/delete uses the HTTP method on the resource.
+Use a verb sub-resource only when the operation is not a field update
+(it triggers a workflow or side effect).
 ```
+GOOD (CRUD):
+POST  /api/projects
+PATCH /api/projects/123
+
+GOOD (action):
+POST /api/projects/123/archive
+POST /api/projects/123/members/456/assign
+
 BAD:
-
-POST /api/projects
-PUT /api/projects/123/user/456/assign
-
-GOOD:
-
-POST /api/projects/123/assign
+PUT /api/projects/123/user/456/assign   # PUT means "replace", not "do something"
 ```
 
-### Alwaus use Kebab Case for url paths 
+### Always use Kebab Case for url paths 
 ```
 GOOD:
-/project/{projectId}/management/reset-members
+/api/projects/{projectId}/reset-members
 ```
 
 ## Parameters
@@ -99,7 +105,7 @@ Request Parameters
 - page: The numeric page number. 0 is the first page. If not provided, the default is 0.
 - size: The number of items per page. If not specified, the default is 100.
 ```
-GET /projects?page=2&size=15
+GET /api/projects?page=2&size=15
 ```
 
 ## API Responses
@@ -128,9 +134,10 @@ Response:
     { ...project2... }
   ],
   "paging": {
-    "limit": 25,
-    "offset": 0,
-    "total": 142
+    "page": 0,
+    "size": 25,
+    "totalElements": 142,
+    "totalPages": 6
   }
 }
 
@@ -161,7 +168,7 @@ HTTP 400 Bad Request
 {
   "status": "BAD_REQUEST",
   "code": 400,
-  "timestamp": "2025–04–20T11:23:15.148431Z",
+  "timestamp": "2025-04-20T11:23:15.148431Z",
   "errors": [
     {
       "type": "VALIDATION_ERROR",
