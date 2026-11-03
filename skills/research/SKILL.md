@@ -1,6 +1,6 @@
 ---
 name: research
-description: Create a subagent that does research from first-hand sources. Use whenever the user wants a topic researched, docs, or API facts gathered, or reading legwork delegated to a background subagent
+description: Delegate a subagent to do research a topic, the docs, or API facts to do the reading in the background
 ---
 
 Spin up a background `researcher` agent to do the research, so you keep working while it reads. Start it with a fresh context window.
