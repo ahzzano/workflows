@@ -10,52 +10,40 @@ install_link() {
     if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
         return
     fi
-    if [ -e "$target" ] || [ -L "$target" ]; then
+    if [ -d "$target" ] && [ ! -L "$target" ]; then
+        # Only the old per-file layout (symlinks) may be replaced.
+        if [ -n "$(find "$target" -mindepth 1 ! -type l)" ]; then
+            printf 'Refusing to replace directory: %s\n' "$target" >&2
+            exit 1
+        fi
+        find "$target" -mindepth 1 -delete
+        rmdir "$target"
+    elif [ -e "$target" ] || [ -L "$target" ]; then
         rm -f "$target"
     fi
     ln -s "$source" "$target"
     printf 'Installed %s\n' "$target"
 }
 
-install_skills() {
-    dest=$1
-    for source in "$repo"/skills/*; do
-        [ -f "$source/SKILL.md" ] || continue
-        install_link "$source" "$dest/$(basename "$source")"
-    done
+# install_platform <config dir> <instructions filename> [skills dir]
+install_platform() {
+    install_link "$repo/skills" "${3:-$1/skills}"
+    install_link "$repo/agents" "$1/agents"
+    install_link "$repo/AGENTS.md" "$1/$2"
 }
 
-install_agents() {
-    dest=$1 extension=$2
-    for source in "$repo"/agents/*.$extension; do
-        [ -f "$source" ] || continue
-        install_link "$source" "$dest/$(basename "$source")"
-    done
-}
-
-[ "$#" -gt 0 ] || set -- pi codex claude
+[ "$#" -gt 0 ] || set -- pi omp codex claude
 for platform do
     case $platform in
-        pi|codex|claude|omp) ;;
-        *) printf 'Usage: %s [pi|codex|claude|omp ...]\n' "$0" >&2; exit 2 ;;
+        pi|omp|codex|claude) ;;
+        *) printf 'Usage: %s [pi|omp|codex|claude ...]\n' "$0" >&2; exit 2 ;;
     esac
 done
 for platform do
     case $platform in
-        pi)
-            install_agents "$HOME/.pi/agent/agents" md
-            install_skills "$HOME/.pi/agent/skills"
-            ;;
-        codex)
-            install_agents "$HOME/.codex/agents" toml
-            install_skills "$HOME/.agents/skills"
-            ;;
-        omp)
-            install_agents "$HOME/.omp/agent/agents" md
-            ;;
-        claude)
-            install_agents "$HOME/.claude/agents" md
-            install_skills "$HOME/.claude/skills"
-            ;;
+        pi) install_platform "$HOME/.pi/agent" AGENTS.md ;;
+        omp) install_platform "$HOME/.omp/agent" AGENTS.md ;;
+        codex) install_platform "$HOME/.codex" AGENTS.md "$HOME/.agents/skills" ;;
+        claude) install_platform "$HOME/.claude" CLAUDE.md ;;
     esac
 done

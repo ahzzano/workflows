@@ -1,6 +1,6 @@
 param(
-    [ValidateSet('pi', 'codex', 'claude')]
-    [string[]] $Platform = @('pi', 'codex', 'claude')
+    [ValidateSet('pi', 'omp', 'codex', 'claude')]
+    [string[]] $Platform = @('pi', 'omp', 'codex', 'claude')
 )
 
 $ErrorActionPreference = 'Stop'
@@ -13,7 +13,12 @@ function Install-Link($source, $target) {
     if ($existing -and $existing.LinkType -and @($existing.Target) -contains $source) { return }
     if ($existing) {
         if ($existing.PSIsContainer -and -not $existing.LinkType) {
-            throw "Refusing to replace directory: $target"
+            # Only the old per-file layout (symlinks) may be replaced.
+            $children = @(Get-ChildItem -LiteralPath $target -Force)
+            if ($children | Where-Object { -not $_.LinkType }) {
+                throw "Refusing to replace directory: $target"
+            }
+            $children | Remove-Item -Force
         }
         Remove-Item -LiteralPath $target -Force
     }
@@ -22,33 +27,17 @@ function Install-Link($source, $target) {
     Write-Host "Installed $target"
 }
 
-function Install-Agents($destination, $extension) {
-    foreach ($source in Get-ChildItem -LiteralPath (Join-Path $repo 'agents') -File -Filter "*.$extension") {
-        Install-Link $source.FullName (Join-Path $destination $source.Name)
-    }
-}
-
-function Install-Skills($destination) {
-    foreach ($source in Get-ChildItem -LiteralPath (Join-Path $repo 'skills') -Directory) {
-        if (Test-Path -LiteralPath (Join-Path $source.FullName 'SKILL.md') -PathType Leaf) {
-            Install-Link $source.FullName (Join-Path $destination $source.Name)
-        }
-    }
+function Install-Tool($dir, $instructions, $skillsDir = (Join-Path $dir 'skills')) {
+    Install-Link (Join-Path $repo 'skills') $skillsDir
+    Install-Link (Join-Path $repo 'agents') (Join-Path $dir 'agents')
+    Install-Link (Join-Path $repo 'AGENTS.md') (Join-Path $dir $instructions)
 }
 
 foreach ($tool in $Platform) {
     switch ($tool) {
-        pi {
-            Install-Agents (Join-Path $homeDir '.pi/agent/agents') 'md'
-            Install-Skills (Join-Path $homeDir '.pi/agent/skills')
-        }
-        codex {
-            Install-Agents (Join-Path $homeDir '.codex/agents') 'toml'
-            Install-Skills (Join-Path $homeDir '.agents/skills')
-        }
-        claude {
-            Install-Agents (Join-Path $homeDir '.claude/agents') 'md'
-            Install-Skills (Join-Path $homeDir '.claude/skills')
-        }
+        pi { Install-Tool (Join-Path $homeDir '.pi/agent') 'AGENTS.md' }
+        omp { Install-Tool (Join-Path $homeDir '.omp/agent') 'AGENTS.md' }
+        codex { Install-Tool (Join-Path $homeDir '.codex') 'AGENTS.md' (Join-Path $homeDir '.agents/skills') }
+        claude { Install-Tool (Join-Path $homeDir '.claude') 'CLAUDE.md' }
     }
 }

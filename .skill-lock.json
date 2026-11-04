@@ -1,14 +1,95 @@
 {
   "version": 3,
   "skills": {
+    "api-design": {
+      "source": "ahzzano/workflows",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ahzzano/workflows.git",
+      "skillPath": "skills/api-design/SKILL.md",
+      "skillFolderHash": "eb8f99482503e074f9314760d90ed4a78497f9fc",
+      "installedAt": "2026-11-03T10:31:36.176Z",
+      "updatedAt": "2026-11-03T10:38:57.111Z"
+    },
+    "better-rust-patterns": {
+      "source": "ahzzano/workflows",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ahzzano/workflows.git",
+      "skillPath": "skills/better-rust-patterns/SKILL.md",
+      "skillFolderHash": "548dc847e4af341e0310cb29f5dafaddae52821f",
+      "installedAt": "2026-11-03T10:31:36.178Z",
+      "updatedAt": "2026-11-03T10:38:57.113Z"
+    },
+    "code-quality": {
+      "source": "ahzzano/workflows",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ahzzano/workflows.git",
+      "skillPath": "skills/code-quality/SKILL.md",
+      "skillFolderHash": "ef9675c4a28307e242b01b5c67bf91a2bfb65766",
+      "installedAt": "2026-11-03T10:31:36.179Z",
+      "updatedAt": "2026-11-03T10:38:57.113Z"
+    },
+    "code-review": {
+      "source": "ahzzano/workflows",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ahzzano/workflows.git",
+      "skillPath": "skills/code-review/SKILL.md",
+      "skillFolderHash": "23d9ce91d69f124ba2bbe8474f95531f3ecd43a3",
+      "installedAt": "2026-11-03T10:31:36.179Z",
+      "updatedAt": "2026-11-03T10:38:57.114Z"
+    },
+    "commit": {
+      "source": "ahzzano/workflows",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ahzzano/workflows.git",
+      "skillPath": "skills/commit/SKILL.md",
+      "skillFolderHash": "04d01521bbed5948b69a3b619c719340971e4dc2",
+      "installedAt": "2026-11-03T10:31:36.180Z",
+      "updatedAt": "2026-11-03T10:38:57.115Z"
+    },
+    "grill": {
+      "source": "ahzzano/workflows",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ahzzano/workflows.git",
+      "skillPath": "skills/grill/SKILL.md",
+      "skillFolderHash": "2867e40185b586e3739d1162a6324f81e81d54bd",
+      "installedAt": "2026-11-03T10:31:36.180Z",
+      "updatedAt": "2026-11-03T10:38:57.115Z"
+    },
     "research": {
       "source": "ahzzano/workflows",
       "sourceType": "github",
       "sourceUrl": "https://github.com/ahzzano/workflows.git",
       "skillPath": "skills/research/SKILL.md",
-      "skillFolderHash": "6255ae4cd8a4f123f151ab5f9f13b1e231e15800",
-      "installedAt": "2026-10-31T15:41:04.157Z",
-      "updatedAt": "2026-10-31T15:41:04.157Z"
+      "skillFolderHash": "3b6a7f977e4bd8ac0a1fe630d844fa922b4c4937",
+      "installedAt": "2026-11-03T10:31:36.181Z",
+      "updatedAt": "2026-11-03T10:38:57.116Z"
+    },
+    "tdd": {
+      "source": "ahzzano/workflows",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ahzzano/workflows.git",
+      "skillPath": "skills/tdd/SKILL.md",
+      "skillFolderHash": "ea8d75e4044f820f7a9ac159894d458458f753cd",
+      "installedAt": "2026-11-03T10:31:36.181Z",
+      "updatedAt": "2026-11-03T10:38:57.116Z"
+    },
+    "thermo-nuclear-code-quality-review": {
+      "source": "ahzzano/workflows",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ahzzano/workflows.git",
+      "skillPath": "skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "skillFolderHash": "c59bbb0cdf885ff07c71b17256abe6d01fa293e6",
+      "installedAt": "2026-11-03T10:31:36.181Z",
+      "updatedAt": "2026-11-03T10:38:57.117Z"
+    },
+    "to-notion-tickets": {
+      "source": "ahzzano/workflows",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ahzzano/workflows.git",
+      "skillPath": "skills/to-notion-tickets/SKILL.md",
+      "skillFolderHash": "3b28edfa09a3b84daa1def39019b6bdb7d7d6a56",
+      "installedAt": "2026-11-03T10:31:36.182Z",
+      "updatedAt": "2026-11-03T10:38:57.117Z"
     }
   },
   "dismissed": {
