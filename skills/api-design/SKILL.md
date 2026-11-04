@@ -27,8 +27,6 @@ GET /api/projects/{projectId}/name
 Nested resources should use a hierarchical url structure to reflect this relationship
 ```
 BAD:
-GET /api/evaluations?projectId=123
-GET /api/getProjectEvaluations/123
 
 GOOD:
 GET /api/projects/123/evaluations
@@ -38,22 +36,17 @@ GET /api/projects/123/evaluations
 ### Routes should speak for themselves
 ```
 BAD:
-GET /api/get/project
+GET /api/get/project                          # This is bad as there are multiple projects
 GET /api/getById/project?id=123
+GET /api/evaluations?projectId=123            # Evaluation is a property inside Project. 
+GET /api/getProjectEvaluations/123            
 
 GOOD:
-GET /api/projects
+GET /api/projects                             # If there are multiple resources, always use plural nouns
+GET /api/user/123/profile
 GET /api/projects/{projectId}
-```
-
-### Always use plural nouns when there are multiple resources
-```
-BAD:
-GET /api/project
-
-GOOD:
-GET /api/projects
-GET /api/projects/{projectId}
+GET /api/projects/{projectId}/reset-members   # Always use Kebab Case for multi word name
+GET /api/projects/{projectId}/evaluations     # Use hierarchical design for nested resources
 ```
 
 ### Use action endpoints only for operations that aren't CRUD
@@ -71,12 +64,6 @@ POST /api/projects/123/members/456/assign
 
 BAD:
 PUT /api/projects/123/user/456/assign   # PUT means "replace", not "do something"
-```
-
-### Always use Kebab Case for url paths 
-```
-GOOD:
-/api/projects/{projectId}/reset-members
 ```
 
 ## Parameters
@@ -99,13 +86,6 @@ POST /api/projects
   "projectName": "Meta",
   "projectAge": 12
 }
-```
-### Always use conventional pagination syntax 
-Request Parameters
-- page: The numeric page number. 0 is the first page. If not provided, the default is 0.
-- size: The number of items per page. If not specified, the default is 100.
-```
-GET /api/projects?page=2&size=15
 ```
 
 ## API Responses
