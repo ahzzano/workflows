@@ -29,3 +29,13 @@
 ### Changes
 - Let test coverage scale with risk and blast radius: keep it focused for narrow changes, and broaden it when the implementation touches shared behavior, cross-module contracts, or user-facing workflows.
 
+## Review Skills 
+You have four review skills at your disposal.
+- `/code-review` is an all code review workflow that audits a commit or PR. Use this when the user asks you to audit a PR, or a commit
+- `/ponytail-audit` is a whole-repo audit: bugs, security, behavior under load, untested risky code, and bloat. Use when auditing the codebase or checking its architecture
+- `/ponytail-review` is used to audit the changes for bugs, security, and tests. You may use this during a code-review
+- `/code-quality` is a playbook that contains guidelines for writing good code. Use when writing code or when auditing large chunks of the code base (i.e. "Review the current architecture of the codebase")
+
+If the request is a whole-repo or vague audit (e.g. "audit the codebase"), use `/ponytail-audit`, and apply `/code-quality` as the checklist
+
+You may be given a set of skills that contain guides and best practices for tools (i.e. `/api-design`). Use these skills as a reference when the codebase uses that specific technology, design, or architecture
