@@ -3,6 +3,7 @@ name: auditor
 description: Agent that audits your codebase
 thinking: medium
 max_turns: 30
+maxTurns: 30
 spawns: scout, researcher
 tools: Read, Grep, Glob, Bash, Agent, task
 ---

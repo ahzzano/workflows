@@ -4,6 +4,7 @@ description: A subagent that creates an implementation plan for the user's reque
 tools: Read, Grep, Glob, Bash, Agent, task
 spawns: scout, researcher
 max_turns: 10
+maxTurns: 10
 thinking: high
 ---
 

@@ -3,6 +3,7 @@ name: scout
 description: sub agent that reads and finds constructs in the codebase
 tools: Read, Grep, Glob
 max_turns: 15
+maxTurns: 15
 thinking: low
 ---
 

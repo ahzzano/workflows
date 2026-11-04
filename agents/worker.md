@@ -3,8 +3,9 @@ name: worker
 description: General purpose worker
 tools: Read, Write, Edit, Bash, WebSearch, WebFetch, web_search, Agent, task
 spawns: scout, researcher, auditor
-model: anthropic/claude-sonnet-5-5
+model: sonnet
 max_turns: 25
+maxTurns: 25
 thinking: medium
 ---
 
