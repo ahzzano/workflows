@@ -86,7 +86,7 @@ def short_function():
 Keep fields private when they protect an invariant (a value that must stay valid,
 or must change together with another field). Plain data with no invariant may stay public.
 Do not add getters/setters that only pass a value through.
-Follow the language's accessor conventions (e.g. see `better-rust-patterns` for Rust).
+Follow the language's accessor conventions (e.g. see `rust-patterns` for Rust).
 
 ```py
 # FAIL: callers can break the invariant (balance must match transactions)

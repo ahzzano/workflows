@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Commit all items step-by-step
+description: Divide all the changes into small bite-sized chunks so that the user can review and commit the changes
 compatibility: Requires Git `git`
 allowed-tools: Bash(git:*) Read
 ---

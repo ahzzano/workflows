@@ -1,5 +1,5 @@
 ---
-name: better-rust-patterns
+name: rust-patterns
 description: A guide of best practices and principles when writing, reviewing, and auditing Rust code. Use this when editing and reviewing Rust code.
 ---
 
@@ -40,12 +40,12 @@ impl Kilometers {
     fn to_miles(self) -> Miles { /* ... */ }
 }
 ```
-## Express boolean arguements by enums instead of bools 
+## Express boolean arguments by enums instead of bools 
 ```rust
-// Bad: we don't know what the arguements are just by reading it
+// Bad: we don't know what the arguments are just by reading it
 let w = Widget::new(true, false)
 
-// Good: We immediately know what the arguements are just by looking at it
+// Good: We immediately know what the arguments are just by looking at it
 let w = Widget::new(Small, Round)
 ```
 
@@ -56,9 +56,11 @@ Avoid using `.clone()` as a substitute for borrowing. Design code that works nat
 
 Consider the performance needs of the code while choosing between cloning and borrowing.
 
+Default to borrowing (`&T` or `&mut T`). Only when you need an owned value, choose between cloning and copying:
+
 | Prefer Cloning when ... | Prefer Copying when... | 
 |-|-|
-| - When using `Arc` or `rc` objects or the object is shared across multiple threads | - The type implements Copy (u32, bool, f32, small structs).|
+| - When using `Arc` or `Rc` objects or the object is shared across multiple threads | - The type implements Copy (u32, bool, f32, small structs).|
 | - You need to change the object AND preserve the original object (immutable snapshots). | - The cost of moving the value is negligible.|
 | - When the underlying API expects Owned Data. | - The struct is at most 2-3 words of memory or around 24 - 64 bytes|
 | - Avoid massive refactoring of non-performance critical code | | 
@@ -67,20 +69,6 @@ Consider the performance needs of the code while choosing between cloning and bo
 Enums should derive copy when 
 - If your enum acts like tags and atoms.
 - The enum payloads are all Copy.
-
-## Passing ownership
-Pass ownership when:
-- When the you truly need a new copy such as but not limited to 
-    - Crate API Design requires owned data.
-    - Have overloaded std::ops but still need ownership to the old data:
-    - Need to do comparison snapshots or due to API you need multiple owned instances of the data.
-- Using `Arc` or `Rc`
-- You have small structs that are too big to Copy but as costly as std::collections.
-
-## Ownership Design
-- Prefer API designs that take reference (fn process(values: &[T])), instead of ownership (fn process(values: Vec<T>)).
-- If you only need read access to elements, prefer `.iter` or `slices`.
-- You need to mutate data that is owned by another thread, use `&mut MyStruct`.
 
 ```rust
 // Example:
@@ -93,6 +81,21 @@ enum Direction {
 }
 ```
 
+## Passing ownership
+Pass ownership when:
+- When you truly need a new copy such as but not limited to 
+    - Crate API Design requires owned data.
+    - Have overloaded std::ops but still need ownership to the old data:
+    - Need to do comparison snapshots or due to API you need multiple owned instances of the data.
+- Using `Arc` or `Rc`
+- You have structs that are too big to derive Copy but still cheap to move (no heap data to clone).
+
+## Ownership Design
+- Prefer API designs that take reference (fn process(values: &[T])), instead of ownership (fn process(values: Vec<T>)).
+- If you only need read access to elements, prefer `.iter` or `slices`.
+- If you need to mutate data, take `&mut MyStruct` instead of taking ownership and returning it.
+- If the data is shared across threads, wrap it in `Arc<Mutex<T>>` (or `RwLock`), or send it over a channel. A plain `&mut` cannot cross thread boundaries (except with `std::thread::scope`).
+
 # Stack vs Heap 
 - Keep small types (impl Copy, usize, bool, etc.) on the Stack
 - Avoid passing huge types (> 512 bytes) by value or passing ownership. Pass them by reference instead
@@ -100,7 +103,7 @@ enum Direction {
 ```rust 
 enum OctreeNode<T> {
     Node(T),
-    Children(Box<[Node<T>; 8]>),
+    Children(Box<[OctreeNode<T>; 8]>),
 }
 ```
 - Return small types by value, types that implement Copy or a cheaply Cloned are efficient to return by value (e.g. struct Vector2 {x: f32, y: f32}).
@@ -169,17 +172,16 @@ Instead: use any of the following patterns:
 // Use when you can have a predefined early return value that doesn't need to know the `Err` value
 let Ok(json) = serde_json::from_str(&input) else {
     return Err(MyError::InvalidJson);
-}
+};
 
 // Use when the error needs a recovery 
-if let Ok(json) = serde_json::from_str(&input) else {
-    ...
-} else {
-    Err(do_something_with_input(&input))
-}
+let json = match serde_json::from_str(&input) {
+    Ok(json) => json,
+    Err(err) => recover_from(&input, err)?,
+};
 
 ```
-Only use the aformentioned functions when:
+Only use the aforementioned functions when:
 - In tests, assertions or test helper functions.
 - When failure is impossible.
 - When the smarter options can't handle the specific case.
