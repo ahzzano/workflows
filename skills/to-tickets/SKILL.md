@@ -27,20 +27,21 @@ Break a plan, spec, or conversation into a set of tickets: tracer-bullet vertica
   Exceptions:
   1. Wide Refactoring - refactors that affect the entire codebase. 
 
-4. Quiz the User
+4. Present the tickets as a list 
 
-  Present the proposed breakdown as a list. For each ticket, show 
-
+  For each ticket:
   - Title: Short title 
   - Blocked by: which other tickets (any) needs to be completed first
   - What it delivers: the end-to-end behavior this ticket expects to work
   - Affected: the layers that are expected to be affected by the ticket
 
+5. Quiz the User
+
   Ask the user
   1. Are the dependencies correct? 
   2. Should any ticket be merged/split further?
 
-5. Publish the tickets
+6. Publish the tickets
 
   If the user has not yet configured the tracker, ask them first. If they don't, default to writing the ticket in `docs/tickets/tn_ticket_name.md`
 
