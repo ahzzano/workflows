@@ -1,6 +1,6 @@
 ---
 name: code-quality
-description: Language agnostic code quality standards for readable code. Always use when auditing/writing new code
+description: Language agnostic code quality standards for readable code. Always use when writing large parts of the codebase or reviewing architecture. 
 metadata:
     origin: Will
 ---
@@ -27,10 +27,9 @@ If there skills that are more language specific, you may use this as well as tha
 - Easy to understand > clever code
 
 ### 3. DRY (Don't Repeat Yourself)
-- Extract common logic into functions
-- Create reusable components
-- Share utilities across modules
-- Avoid copy-paste programming
+- Extract common logic into functions when the logic appears for 3 or more times and changes for the same reason
+- Duplication is cheaper than the wrong abstraction; two similar blocks can stay
+- Don't create shared utilities or components for a single caller
 
 ### 4. YAGNI (You Aren't Gonna Need It)
 - Don't build features before they're needed

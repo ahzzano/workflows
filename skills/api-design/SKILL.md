@@ -1,6 +1,6 @@
 ---
 name: api-design
-description: API design guidelines and principles for auditing and writing backend designs
+description: REST/HTTP API design guidelines covering methods, status codes, URL naming, request/response shapes, error format, and versioning. Use when designing, implementing, or reviewing backend endpoints or route handlers.
 ---
 
 This skill is a playbook/set of principles to design better APIs. If you are designing backend APIs or auditing backend implementations, use this skill
@@ -154,7 +154,7 @@ HTTP 422 Unprocessable Entity
   "errors": [
     {
       "type": "VALIDATION_ERROR",
-      "message": "Malformed request, unparsable JSON",
+      "message": "Must not be empty",
       "field": "key"
     }
   ]

@@ -1,16 +1,20 @@
-## Workflow 
-1. Think through the problem first 
-2. Divide the work into individual todo items 
-3. Check-in with the user before starting the work 
+## Workflow
+For multi-file or non-trivial changes. Trivial edits (typos, comments, or explicit single-line fixes with no behavior risk) skip steps 2, 3 and 6. Still verify (step 5) where cheap, and report.
+
+1. Think through the problem first
+2. Divide the work into individual todo items
+
+    If the work can be split across subagents, give each one 1-2 files and a clear goal. Subagents running in parallel must not touch the same files.
+3. Check in with the user before starting the work
 
     If you have tools such as `ask_user_question`, use it to ask the question.
+    Skip the check-in only when the instruction is specific and unambiguous and your plan makes no assumptions or tradeoffs the user hasn't decided.
+4. Once approved, or if the check-in was skipped per step 3 (revise the plan if the user objects), do the work. Subagents run in the background; wait for all of them to finish before step 5
+5. Verify by running: tests, build, and lint where they exist
+6. Have an auditor agent audit the edits, whether or not subagents made them
 
-    If the work can be divided into multiple subagents, break it up. Ideally, 1-2 files per subagent with each of them having goals.
-
-    These subagents will run in the background.
-4. Once approved, start the work 
-5. Once all the subagents finishes the work, have an auditor agent audit the edits 
-6. Once approved by the auditor, tell the user all the changes you made
+    If the auditor rejects, fix the findings, re-run step 5, and re-audit. If the second audit also rejects, stop and report the open findings to the user.
+7. Tell the user all the changes you made, and anything that was not verified
 
 ## Rules 
 ### General 
@@ -75,7 +79,7 @@ You have four review skills at your disposal.
 - `/code-review` is an all code review workflow that audits a commit or PR. Use this when the user asks you to audit a PR, or a commit
 - `/ponytail-audit` is a whole-repo audit: bugs, security, behavior under load, untested risky code, and bloat. Use when auditing the codebase or checking its architecture
 - `/ponytail-review` is used to audit the changes for bugs, security, and tests. You may use this during a code-review
-- `/code-quality` is a playbook that contains guidelines for writing good code. Use when writing code or when auditing large chunks of the code base (i.e. "Review the current architecture of the codebase")
+- `/code-quality` is a playbook that contains guidelines for writing good code. Use when writing large parts of the codebase or when auditing large chunks of the code base (i.e. "Review the current architecture of the codebase")
 
 If the request is a whole-repo or vague audit (e.g. "audit the codebase"), use `/ponytail-audit`, and apply `/code-quality` as the checklist
 

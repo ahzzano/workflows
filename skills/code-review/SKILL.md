@@ -17,7 +17,7 @@ Provide a code review for a given pull request or commit
 - Always cite and link each issue in the comments 
 
 # Steps 
-1. Launch `scout` agents to check if any of the following is true 
+1. Launch `auditor` agents to check if any of the following is true 
     - The PR is closed 
     - The PR is a draft 
     - The PR does not need a code review (trivial change that is obviously correct)
@@ -28,7 +28,7 @@ Provide a code review for a given pull request or commit
     - The root `AGENTS.md` file 
     - Any nested `AGENTS.md` files
 
-3. Launch a `scout` agent to view the pull request and return a summary of changes 
+3. Launch an `auditor` agent to view the pull request and return a summary of changes 
 
 4. Launch auditor agents to independently review the changes. 
     
