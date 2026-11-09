@@ -63,8 +63,7 @@ GOOD:
 GET /api/projects                             # If there are multiple resources, always use plural nouns
 GET /api/users/123/profile                    # If there is a one-to-one mapping between resources (i.e. a user can only have one profile), the noun should be in the singular
 GET /api/projects/{projectId}
-POST /api/projects/{projectId}/resetMembers   # Always use camel case for actions 
-GET /api/projects/{projectId}/team-leaders    # Use kebab case for multi word resource names
+GET /api/projects/{projectId}/team-leaders    # Use kebab case for multi word resources, actions, etc.
 GET /api/projects/{projectId}/evaluations     # Use hierarchical design for nested resources
 ```
 
