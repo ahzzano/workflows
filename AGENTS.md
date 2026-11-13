@@ -84,3 +84,18 @@ You have four review skills at your disposal.
 If the request is a whole-repo or vague audit (e.g. "audit the codebase"), use `/ponytail-audit`, and apply `/code-quality` as the checklist
 
 You may be given a set of skills that contain guides and best practices for tools (i.e. `/api-design`, `/springboot-patterns`). Use these skills as a reference when the codebase uses that specific technology, design, or architecture. 
+
+## The Line Budget 
+A pull request is an important event where code from a branch will be reviewed by a human (or even another agent) and be checked before merging it to another branch. As such, it is important to keep line changes under control. If you are in a branch that is not main or master, you will only be given 1000 lines of code to write.
+When planning:
+- Guess or estimate how many lines of code will be needed to make the change. If the change risks going overbudget, inform the user. This means that the changes are too big for the PR and needs to be split up further
+
+If a request or change will force you to go above the 1000 line budget
+- Inform the user if they still want to proceed with the changes made. 
+- If the user tells you to proceed, continue working on it. Otherwise, revert to a previous state that still satisfies a fraction of the user's request but also works.
+
+Guidelines:
+- File Deletions are excempt from the line budget. 
+- Line modifications and deletions are also included in the budget.
+- Avoid using one-liners just to meet the line budget. This will just frustrate the code reviewer during the PR process
+- When reverting due to the user not allowing you to go overbudget, make sure that the end state still works.
