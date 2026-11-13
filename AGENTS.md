@@ -83,4 +83,4 @@ You have four review skills at your disposal.
 
 If the request is a whole-repo or vague audit (e.g. "audit the codebase"), use `/ponytail-audit`, and apply `/code-quality` as the checklist
 
-You may be given a set of skills that contain guides and best practices for tools (i.e. `/api-design`). Use these skills as a reference when the codebase uses that specific technology, design, or architecture
+You may be given a set of skills that contain guides and best practices for tools (i.e. `/api-design`, `/springboot-patterns`). Use these skills as a reference when the codebase uses that specific technology, design, or architecture. 
